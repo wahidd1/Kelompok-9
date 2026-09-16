@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Artikel - Edukasi Gender</title>
+<link rel="stylesheet" href="style.css">
+<script src="format.js"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">EDUKASI GENDER</div>
+    <div class="nav-menu" id="navMenu">
+      <span class="nav-pill" id="navPill"></span>
+      <a href="index.html">Beranda</a>
+      <a href="index.html#artikel" class="active">Daftar Artikel</a>
+      <a href="index.html#kuis">Kuis</a>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-nav">Registrasi</button>
+      <button class="btn btn-nav">Login</button>
+    </div>
+  </nav>
+
+  <!-- DETAIL ARTIKEL -->
+  <section class="detail-section">
+    <div class="detail-container">
+      <a href="index.html#artikel" class="back-link">&#8592; Kembali ke Daftar Artikel</a>
+
+      <span class="mini-badge">Artikel</span>
+      <h1 id="detailTitle">Judul Artikel</h1>
+      <div class="meta-info">
+        <span class="date" id="detailDate">Senin, 1 Januari 2026</span>
+        <span class="dot">&bull;</span>
+        <span class="author">Oleh <span id="detailAuthor">Tim Edukasi Gender</span></span>
+      </div>
+
+      <div class="detail-image">
+        <img id="detailImage" src="" alt="">
+      </div>
+
+      <div class="detail-body" id="detailBody">
+        <p>Memuat artikel...</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = Number(params.get('id'));
+
+    fetch('artikel_detail.php?id=' + id)
+      .then(response => {
+        if (!response.ok) throw new Error('Gagal mengambil data');
+        return response.json();
+      })
+      .then(artikel => {
+        if (!artikel) {
+          document.getElementById('detailTitle').textContent = 'Artikel tidak ditemukan';
+          document.getElementById('detailBody').innerHTML = '<p class="status-text">Artikel yang kamu cari tidak ada di database.</p>';
+          return;
+        }
+
+        const isiParagraf = artikel.body
+          .split('\n')
+          .filter(baris => baris.trim() !== '')
+          .map(baris => `<p>${baris}</p>`)
+          .join('');
+
+        document.title = artikel.title + " - Edukasi Gender";
+        document.getElementById('detailTitle').textContent = artikel.title;
+        document.getElementById('detailDate').textContent = formatTanggalIndo(artikel.date);
+        document.getElementById('detailAuthor').textContent = artikel.author;
+        document.getElementById('detailImage').src = artikel.image;
+        document.getElementById('detailImage').alt = artikel.title;
+        document.getElementById('detailBody').innerHTML = isiParagraf;
+      })
+      .catch(() => {
+        document.getElementById('detailTitle').textContent = 'Artikel tidak dapat dimuat';
+        document.getElementById('detailBody').innerHTML = '<p class="status-text">Database belum terhubung, artikel tidak dapat ditampilkan.</p>';
+      });
+
+    const navMenu = document.getElementById('navMenu');
+    const navPill = document.getElementById('navPill');
+    const navLinks = navMenu.querySelectorAll('a');
+
+    function movePillTo(link) {
+      navPill.style.left = link.offsetLeft + 'px';
+      navPill.style.width = link.offsetWidth + 'px';
+    }
+
+    window.addEventListener('load', () => {
+      movePillTo(navMenu.querySelector('a.active'));
+    });
+  </script>
+</body>
+</html>
