@@ -4,7 +4,7 @@
 @section('content')
     <h2 class="mb-4">Belajar Melalui Artikel Edukatif</h2>
     <div class="row">
-        @foreach ($artikels as $item)
+        @forelse ($artikel as $item)
             <div class="col-md-3 mb-4">
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column"> 
@@ -17,6 +17,6 @@
             </div>
             @empty
                 <p>Belum ada artikel yang tersedia.</p>
-        @endforeach
+        @endforelse
     </div>
     @endsection

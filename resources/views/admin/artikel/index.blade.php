@@ -13,7 +13,7 @@
         {{ session('success') }}
     </div>
 @endif
-@forelse ($artikels as $item)
+@forelse ($artikel as $item)
     <div	class="card	mb-2	p-3	d-flex	flex-row	justify-content-between	align-items-center">
         <div>
             <b>{{	$item->judul	}}</b><br>
