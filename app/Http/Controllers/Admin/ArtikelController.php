@@ -39,7 +39,6 @@ class ArtikelController extends Controller
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil ditambahkan.');
     }
 
-    
     public function edit($id)
     {
         $artikel = Artikel::findOrFail($id);
