@@ -40,7 +40,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul class="mb-0">
