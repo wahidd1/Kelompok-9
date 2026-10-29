@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Shuttle;
 use Illuminate\Http\Request;
 
@@ -24,19 +23,17 @@ class ShuttleController extends Controller
     }
 
     // CREATE: simpan data
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_armada'      => 'required|string|max:255',
-            'kapasitas'        => 'required|integer|min:1',
-            'rute_operasional' => 'nullable|string|max:255',
-            'status_aktif'     => 'required|boolean',
+            'nama_armada' => 'required|string|max:50',
+            'kapasitas' => 'required|numeric|min:10|max:60',
+            'rute_operasional' => 'required|string'
         ]);
 
         Shuttle::create($validated);
 
-        return redirect()->route('shuttles.index')
-            ->with('success', 'Data armada berhasil ditambahkan.');
+        return redirect()->route('shuttles.index');
     }
 
     // SHOW: detail satu data
@@ -57,10 +54,9 @@ class ShuttleController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'nama_armada'      => 'required|string|max:255',
-            'kapasitas'        => 'required|integer|min:1',
-            'rute_operasional' => 'nullable|string|max:255',
-            'status_aktif'     => 'required|boolean',
+            'nama_armada' => 'required|string|max:50',
+            'kapasitas' => 'required|numeric|min:10|max:60',
+            'rute_operasional' => 'required|string'
         ]);
 
         $shuttle = Shuttle::findOrFail($id);
