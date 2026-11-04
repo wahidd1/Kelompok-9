@@ -10,7 +10,11 @@ class FeedbackController extends Controller
 {
     public function index()
 {
-    $feedback = Feedback::with('pengguna')->orderByDesc('tanggal')->get();
+    $feedback = Feedback::with('pengguna')
+        ->orderByDesc('tanggal')
+        ->paginate(10)
+        ->withQueryString();
+
     return view('admin.feedback.index', compact('feedback'));
 }
 
