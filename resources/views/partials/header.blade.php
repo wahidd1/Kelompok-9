@@ -21,6 +21,8 @@
                     @if (session('login_role')	===	'admin')
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.artikel.index') }}">Kelola Artikel</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.kuis.index') }}">Kelola Kuis</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.feedback.index') }}">Kelola Feedback</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.laporan.index') }}">Laporan</a></li>
                     @endif
 
                     {{-- Menu kanan: login / logout --}}

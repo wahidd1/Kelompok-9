@@ -36,3 +36,58 @@ Route::middleware('cekuser')->group(function () {
     Route::get('/hasil', [HasilKuisController::class, 'index'])->name('hasil.index');
     Route::get('/hasil/{id}', [HasilKuisController::class, 'show'])->name('hasil.show');
 });
+
+// ==========================================
+// ⚠️ ROUTE DUMMY MODUL 4 (LENGKAP)
+// Hapus kode ini kalau backend asli udah di-merge!
+// ==========================================
+
+// 1. Route buat Form Feedback di halaman Artikel
+Route::post('/feedback', function () { 
+    return back()->with('success', 'Feedback berhasil dikirim (Dummy)!'); 
+})->name('feedback.store');
+
+// 2. Route buat Admin
+Route::middleware('cekadmin')->prefix('admin')->group(function () {
+    
+    // Halaman Tabel Feedback
+    Route::get('/feedback', function () { 
+        // Bikin data palsu (dummy) 2 baris
+        $feedback = new \Illuminate\Pagination\LengthAwarePaginator(
+            collect([
+                (object)['id_feedback'=>1, 'pengguna'=>(object)['username'=>'minji'], 'isi_feedback'=>'Webnya keren banget, lanjutkan!', 'tanggal'=>'2026-11-04'],
+                (object)['id_feedback'=>2, 'pengguna'=>(object)['username'=>'budi'], 'isi_feedback'=>'Kuisnya seru, tapi tolong tambah soalnya.', 'tanggal'=>'2026-11-04']
+            ]), 2, 10, 1
+        );
+        return view('admin.feedback.index', compact('feedback')); 
+    })->name('admin.feedback.index');
+    
+    // Tombol Setujui & Hapus di Tabel Feedback
+    Route::put('/feedback/{id}/approve', function() { return back()->with('success', 'Feedback disetujui (Dummy).'); })->name('admin.feedback.approve');
+    Route::delete('/feedback/{id}', function() { return back()->with('success', 'Feedback dihapus (Dummy).'); })->name('admin.feedback.destroy');
+
+    // Halaman Laporan (3 Tab)
+    Route::get('/laporan', function () { 
+        // Data palsu buat Tab 1 (Pengguna)
+        $pengguna = collect([ 
+            (object)['id_pengguna'=>1, 'username'=>'minji', 'email'=>'minji@mail.com', 'gender'=>'perempuan', 'umur'=>20],
+            (object)['id_pengguna'=>2, 'username'=>'budi', 'email'=>'budi@mail.com', 'gender'=>'laki-laki', 'umur'=>22]
+        ]);
+        // Data palsu buat Tab 2 (Hasil Kuis)
+        $hasil_kuis = collect([ 
+            (object)['id'=>1, 'id_pengguna'=>1, 'skor'=>100, 'tanggal'=>'2026-11-04'] 
+        ]);
+        // Data palsu buat Tab 3 (Feedback)
+        $feedback = collect([ 
+            (object)['id_feedback'=>1, 'pengguna'=>(object)['username'=>'minji'], 'isi_feedback'=>'Mantap!', 'tanggal'=>'2026-11-04'] 
+        ]);
+        
+        return view('admin.laporan.index', compact('pengguna', 'hasil_kuis', 'feedback')); 
+    })->name('admin.laporan.index');
+
+    // Tombol Cetak PDF
+    Route::get('/laporan/export', function () { 
+        return back()->with('success', 'Fitur Cetak PDF jalan (Dummy).'); 
+    })->name('admin.laporan.export');
+
+});
