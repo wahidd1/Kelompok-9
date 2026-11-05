@@ -13,5 +13,6 @@
 
 <div>{!! nl2br(e($artikel->konten)) !!}</div>
 
-<a href="{{ route('artikel.index') }}" class="btn btn-secondary mt-4">Kembali ke Daftar Artikel</a>  
+<a href="{{ route('artikel.index') }}" class="btn btn-secondary mt-4">Kembali ke Daftar Artikel</a>
+@include('partials.feedback')  
 @endsection
