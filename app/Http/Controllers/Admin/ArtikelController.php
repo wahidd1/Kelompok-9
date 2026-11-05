@@ -39,6 +39,32 @@ class ArtikelController extends Controller
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil ditambahkan.');
     }
 
+    public function edit($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+
+        return view('admin.artikel.form', compact('artikel'));
+    }
+
+public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'konten' => 'required|string',
+            'sumber' => 'nullable|string|max:255',
+        ]);
+
+        $artikel = Artikel::findOrFail($id);
+
+        $artikel->update([
+            'judul'  => $validated['judul'],
+            'konten' => $validated['konten'],
+            'sumber' => $validated['sumber'] ?? null,
+        ]);
+
+         return redirect('/admin/artikel')->with('success', 'Artikel berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
         Artikel::findOrFail($id)->delete();
