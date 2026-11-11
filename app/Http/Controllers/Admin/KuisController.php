@@ -39,6 +39,25 @@ class KuisController extends Controller
         return redirect()->route('admin.kuis.index')->with('success', 'Kuis berhasil ditambahkan.');
     }
 
+        public function edit($id)
+    {
+        $kuis = Kuis::findOrFail($id);
+        return view('admin.kuis.edit', compact('kuis'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'judul'     => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'tanggal'   => 'required|date',
+        ]);
+
+        Kuis::findOrFail($id)->update($validated);
+
+        return redirect()->route('admin.kuis.index')->with('success', 'Kuis berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
         Kuis::findOrFail($id)->delete();

@@ -24,18 +24,29 @@ Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index
 Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
 // Buat admin (wajib login admin, dijaga middleware cekadmin)
 Route::middleware('cekadmin')->prefix('admin')->group(function () {
-Route::get('/artikel', [AdminArtikelController::class, 'index'])->name('admin.artikel.index');
-Route::get('/artikel/tambah', [AdminArtikelController::class, 'create'])->name('admin.artikel.create');
-Route::post('/artikel', [AdminArtikelController::class, 'store'])->name('admin.artikel.store');
-Route::delete('/artikel/{id}', [AdminArtikelController::class, 'destroy'])->name('admin.artikel.destroy');
-Route::get('/kuis', [AdminKuisController::class, 'index'])->name('admin.kuis.index');
-Route::post('/kuis', [AdminKuisController::class, 'store'])->name('admin.kuis.store');
-Route::delete('/kuis/{id}', [AdminKuisController::class, 'destroy'])->name('admin.kuis.destroy');
-Route::get('/feedback', [AdminFeedbackController::class, 'index'])->name('admin.feedback.index');
-Route::patch('/feedback/{id}/approve', [AdminFeedbackController::class, 'approve'])->name('admin.feedback.approve');
-Route::delete('/feedback/{id}', [AdminFeedbackController::class, 'destroy'])->name('admin.feedback.destroy');
-Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
-Route::get('/laporan/export', [AdminLaporanController::class, 'export'])->name('admin.laporan.export');
+    // Artikel
+    Route::get('/artikel', [AdminArtikelController::class, 'index'])->name('admin.artikel.index');
+    Route::get('/artikel/tambah', [AdminArtikelController::class, 'create'])->name('admin.artikel.create');
+    Route::post('/artikel', [AdminArtikelController::class, 'store'])->name('admin.artikel.store');
+    Route::get('/artikel/{id}/edit', [AdminArtikelController::class, 'edit'])->name('admin.artikel.edit');
+    Route::put('/artikel/{id}', [AdminArtikelController::class, 'update'])->name('admin.artikel.update');
+    Route::delete('/artikel/{id}', [AdminArtikelController::class, 'destroy'])->name('admin.artikel.destroy');
+
+    // Kuis
+    Route::get('/kuis', [AdminKuisController::class, 'index'])->name('admin.kuis.index');
+    Route::post('/kuis', [AdminKuisController::class, 'store'])->name('admin.kuis.store');
+    Route::get('/kuis/{id}/edit', [AdminKuisController::class, 'edit'])->name('admin.kuis.edit');
+    Route::put('/kuis/{id}', [AdminKuisController::class, 'update'])->name('admin.kuis.update');
+    Route::delete('/kuis/{id}', [AdminKuisController::class, 'destroy'])->name('admin.kuis.destroy');
+
+    // Feedback
+    Route::get('/feedback', [AdminFeedbackController::class, 'index'])->name('admin.feedback.index');
+    Route::put('/feedback/{id}/approve', [AdminFeedbackController::class, 'approve'])->name('admin.feedback.approve');
+    Route::delete('/feedback/{id}', [AdminFeedbackController::class, 'destroy'])->name('admin.feedback.destroy');
+
+    // Laporan
+    Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
+    Route::get('/laporan/export', [AdminLaporanController::class, 'export'])->name('admin.laporan.export');
 });
 Route::middleware('cekuser')->group(function () {
     Route::get('/kuis', [KuisController::class, 'index'])->name('kuis.index');
