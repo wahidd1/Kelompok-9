@@ -1,3 +1,3 @@
-<footer class="bg-light text-center text-muted py-3 mt-4 border-top">
-    <small>©	{{	date('Y')	}}	Kelompok	9	—	Website	Edukasi	Kesetaraan	Gender</small>
+<footer class="footer-gender text-center py-3 mt-4">
+    <small>&copy; {{ date('Y') }} Kelompok 9 &middot; Website Edukasi Kesetaraan Gender</small>
 </footer>

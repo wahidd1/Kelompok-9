@@ -8,10 +8,6 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKuis">+ Tambah</button>
     </div>
 
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     @forelse ($kuis as $item)
         <div class="card mb-2 p-3 d-flex flex-row justify-content-between align-items-center">
             <div>

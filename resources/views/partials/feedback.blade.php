@@ -4,9 +4,6 @@
     </div>
     <div class="card-body">
         {{-- Tampilkan pesan sukses kalau ada --}}
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
         
         <form action="{{ route('feedback.store') }}" method="POST">
             @csrf
