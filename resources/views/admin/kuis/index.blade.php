@@ -3,25 +3,33 @@
 @section('title', 'Kelola Kuis')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Daftar Kuis</h2>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKuis">+ Tambah</button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Daftar Kuis</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalKuis">
+            <i class="bi bi-plus-lg me-1"></i>Tambah
+        </button>
     </div>
 
     @forelse ($kuis as $item)
-        <div class="card mb-2 p-3 d-flex flex-row justify-content-between align-items-center">
+        <div class="card card-hover mb-3 p-3 d-flex flex-row justify-content-between align-items-center">
             <div>
                 <b>{{ $item->judul }}</b><br>
                 <small class="text-muted">{{ $item->pertanyaan_count }} soal &middot; {{ $item->tanggal->format('d M Y') }}</small>
             </div>
-            <form action="{{ route('admin.kuis.destroy', $item->id_kuis) }}" method="POST" onsubmit="return confirm('Hapus kuis ini? Semua soal dan hasil pengguna untuk kuis ini ikut terhapus.')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-            </form>
+            
+            {{-- Tambah Tombol Edit --}}
+            <div class="d-flex gap-2">
+                <a href="{{ route('admin.kuis.edit', $item->id_kuis) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                
+                <form action="{{ route('admin.kuis.destroy', $item->id_kuis) }}" method="POST" onsubmit="return confirm('Hapus kuis ini? Semua soal dan hasil pengguna untuk kuis ini ikut terhapus.')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                </form>
+            </div>
         </div>
     @empty
-        <p>Belum ada kuis.</p>
+        <div class="alert alert-light text-center">Belum ada kuis.</div>
     @endforelse
 
     {{-- Popup Form Tambah Kuis --}}
