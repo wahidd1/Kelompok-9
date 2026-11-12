@@ -7,6 +7,8 @@
 <body>
     <h1>Daftar Armada Shuttle</h1>
 
+    <a href="{{ route('export.pdf') }}" class="btn">Unduh Laporan PDF</a>
+
     <a href="{{ route('shuttles.create') }}">+ Tambah Shuttle Baru</a>
 
     <form action="{{ route('shuttles.index') }}" method="GET" style="margin-top: 15px;">

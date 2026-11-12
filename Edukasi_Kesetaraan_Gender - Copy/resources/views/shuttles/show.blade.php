@@ -29,5 +29,6 @@
     <br>
     <a href="{{ route('shuttles.edit', $shuttle->id) }}">Edit</a> |
     <a href="{{ route('shuttles.index') }}">&larr; Kembali ke Daftar</a>
+
 </body>
 </html>

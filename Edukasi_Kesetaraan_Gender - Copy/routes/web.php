@@ -8,3 +8,5 @@ Route::resource('shuttles', ShuttleController::class);
 Route::get('/', [PageController::class, 'index']);
 Route::get('/about', [PageController::class, 'about']);
 Route::get('/service', [PageController::class, 'service']);
+Route::get('/shuttle/export-pdf', [ShuttleController::class, 'exportPdf']);
+Route::get('/export-pdf', [ShuttleController::class, 'exportPdf'])->name('export.pdf');

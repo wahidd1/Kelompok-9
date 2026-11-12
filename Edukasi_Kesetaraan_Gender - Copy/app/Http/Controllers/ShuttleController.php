@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Shuttle;
 use Illuminate\Http\Request;
 
@@ -74,5 +75,14 @@ class ShuttleController extends Controller
 
         return redirect()->route('shuttles.index')
             ->with('success', 'Data armada berhasil dihapus.');
+    }
+
+    public function exportPdf()
+    {
+        $data = Shuttle::all();
+
+        $pdf = Pdf::loadView('shuttles.view_pdf', ['data' => $data]);
+
+        return $pdf->download('laporan-shuttle.pdf');
     }
 }
