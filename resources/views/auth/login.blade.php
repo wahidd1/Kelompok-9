@@ -12,10 +12,6 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
             <div class="btn-group w-100 mb-4">
                 <button type="button" id="tabUser" class="btn btn-primary" onclick="pilihRole('user')">User</button>
                 <button type="button" id="tabAdmin" class="btn btn-outline-primary" onclick="pilihRole('admin')">Admin</button>
