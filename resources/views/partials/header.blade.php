@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-gender sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-semibold" href="{{ route('beranda') }}">
+        <a class="navbar-brand fw-semibold" href="{{ session('login_role') === 'admin' ? route('admin.artikel.index') : route('beranda') }}">
             <i class="bi bi-gender-ambiguous me-1"></i> Edukasi Gender
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuUtama">
@@ -8,13 +8,14 @@
         </button>
         <div class="collapse navbar-collapse" id="menuUtama">
             {{-- Menu kiri --}}
-            <ul class="navbar-nav me-auto">
+            @if (session('login_role') != 'admin')
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('artikel.*') ? 'active' : '' }}" href="{{ route('artikel.index') }}">Artikel</a>
                 </li>
+            @endif
                 @if (session('login_role') === 'user')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('kuis.*') ? 'active' : '' }}" href="{{ route('kuis.index') }}">Kuis</a>
