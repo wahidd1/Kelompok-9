@@ -10,7 +10,6 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        // firstOrCreate: kalau emailnya sudah ada, tidak dibuat dobel
         Admin::firstOrCreate(
             ['email' => 'admin@edukasigender.test'],
             ['username' => 'Admin', 'password' => Hash::make('Admin12345')]
