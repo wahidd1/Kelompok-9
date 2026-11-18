@@ -34,6 +34,11 @@
                 <div class="mb-3">
                     <label class="form-label">Password</label>
                     <input type="password" name="password" class="form-control">
+                    <div class="form-text">Minimal 8 karakter, kombinasi huruf dan angka.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Konfirmasi Password</label>
+                    <input type="password" name="password_confirmation" class="form-control">
                 </div>
 
                 <div class="mb-3">
@@ -45,8 +50,8 @@
                     <label class="form-label">Gender</label>
                     <select name="gender" class="form-select">
                         <option value="">-- Pilih --</option>
-                        <option value="laki-laki">Laki-laki</option>
-                        <option value="perempuan">Perempuan</option>
+                        <option value="laki-laki" {{ old('gender') === 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="perempuan" {{ old('gender') === 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                 </div>
 
