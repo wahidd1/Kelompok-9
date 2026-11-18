@@ -23,7 +23,7 @@ Route::get('/', [HomeController::class, 'index'])->name('beranda');
 Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
 // Buat admin (wajib login admin, dijaga middleware cekadmin)
-Route::middleware('cekadmin')->prefix('admin')->group(function () {
+Route::middleware('peran:admin')->prefix('admin')->group(function () {
     // Artikel
     Route::get('/artikel', [AdminArtikelController::class, 'index'])->name('admin.artikel.index');
     Route::get('/artikel/tambah', [AdminArtikelController::class, 'create'])->name('admin.artikel.create');
@@ -48,7 +48,7 @@ Route::middleware('cekadmin')->prefix('admin')->group(function () {
     Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
     Route::get('/laporan/export', [AdminLaporanController::class, 'export'])->name('admin.laporan.export');
 });
-Route::middleware('cekuser')->group(function () {
+Route::middleware('peran:user')->group(function () {
     Route::get('/kuis', [KuisController::class, 'index'])->name('kuis.index');
     Route::get('/kuis/{id}', [KuisController::class, 'show'])->name('kuis.show');
     Route::post('/kuis/{id}', [KuisController::class, 'submit'])->name('kuis.submit');
@@ -56,3 +56,11 @@ Route::middleware('cekuser')->group(function () {
     Route::get('/hasil/{id}', [HasilKuisController::class, 'show'])->name('hasil.show');
     Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 });
+Route::middleware('tamu')->group(function () {
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+});
+
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');

@@ -15,21 +15,22 @@ return view('auth.register');
 public function store(Request $request)
 {
 $validated = $request->validate([
-'username' => 'required|string|max:50',
-'email' => 'required|email|unique:pengguna,email',
-'password' => 'required|min:8',
-'gender' => 'required|in:laki-laki,perempuan',
-'umur' => 'required|integer|min:1',
+    'username' => 'required|string|max:50',
+    'email' => 'required|email|unique:pengguna,email',
+    'password' => [
+        'required',
+        'min:8',
+        'confirmed',
+        'regex:/[A-Za-z]/',
+        'regex:/[0-9]/',
+    ],
+    'gender' => 'required|in:laki-laki,perempuan',
+    'umur' => 'required|integer|min:1',
+], [
+    'password.min' => 'Password minimal 8 karakter.',
+    'password.confirmed' => 'Konfirmasi password tidak sama.',
+    'password.regex' => 'Password harus mengandung huruf dan angka.',
 ]);
-Pengguna::create([
-'username' => $validated['username'],
-'email' => $validated['email'],
-'password' => Hash::make($validated['password']),
-'gender' => $validated['gender'],
-'umur' => $validated['umur'],
-'tanggal_daftar' => now(),
-]);
-return redirect('/login')->with('success', 'Akun berhasil dibuat, silakan masuk.');
 }
 }
 
