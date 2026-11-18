@@ -31,6 +31,14 @@ $validated = $request->validate([
     'password.confirmed' => 'Konfirmasi password tidak sama.',
     'password.regex' => 'Password harus mengandung huruf dan angka.',
 ]);
-}
-}
+    Pengguna::create([
+        'username' => $validated['username'],
+        'email'    => $validated['email'],
+        'password' => Hash::make($validated['password']),
+        'gender'   => $validated['gender'],
+        'umur'     => $validated['umur'],
+    ]);
 
+    return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login.');
+}
+}
