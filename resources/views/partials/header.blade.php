@@ -7,15 +7,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="menuUtama">
-            {{-- Menu kiri --}}
-            @if (session('login_role') != 'admin')
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('artikel.*') ? 'active' : '' }}" href="{{ route('artikel.index') }}">Artikel</a>
-                </li>
-            @endif
+            <ul class="navbar-nav me-auto">
+                @if (session('login_role') != 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('artikel.*') ? 'active' : '' }}" href="{{ route('artikel.index') }}">Artikel</a>
+                    </li>
+                @endif
+                
                 @if (session('login_role') === 'user')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('kuis.*') ? 'active' : '' }}" href="{{ route('kuis.index') }}">Kuis</a>
@@ -24,6 +25,7 @@
                         <a class="nav-link {{ request()->routeIs('hasil.*') ? 'active' : '' }}" href="{{ route('hasil.index') }}">Hasil Kuis</a>
                     </li>
                 @endif
+                
                 @if (session('login_role') === 'admin')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.artikel.*') ? 'active' : '' }}" href="{{ route('admin.artikel.index') }}">Kelola Artikel</a>
@@ -39,7 +41,7 @@
                     </li>
                 @endif
             </ul>
-            {{-- Menu kanan: login / logout --}}
+            
             <ul class="navbar-nav align-items-lg-center gap-lg-2">
                 @if (session('login_role'))
                     <li class="nav-item">
