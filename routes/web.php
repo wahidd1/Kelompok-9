@@ -13,7 +13,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\LaporanController as AdminLaporanController;
 
-Route::get('/register', [RegisterController::class, 'create'])->name('register');
+Route::get('/daftar', [RegisterController::class, 'create'])->name('daftar');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
